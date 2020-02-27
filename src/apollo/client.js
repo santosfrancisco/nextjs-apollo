@@ -137,7 +137,16 @@ function createIsomorphLink() {
   if (typeof window === 'undefined') {
     const { SchemaLink } = require('apollo-link-schema')
     const { schema } = require('./schema')
-    return new SchemaLink({ schema })
+    return new SchemaLink({ 
+      schema,
+      dataSources: () => ({
+        IGDB: new IGDBSource(),
+      }),
+      context: () => ({
+        token: '0ecda835fb7f168ecb0129800aea3571',
+      }),
+    
+     })
   } else {
     const { HttpLink } = require('apollo-link-http')
     return new HttpLink({
