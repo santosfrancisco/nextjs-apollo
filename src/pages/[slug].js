@@ -16,19 +16,21 @@ const Index = () => {
   const { slug } = router.query 
   const {
     loading,
-    data: {
-      gameBySlug
-    }
+    error,
+    data
   } = useQuery(QUERY, {
     variables: { slug }
   })
-
+  const { gameBySlug } = data;
+  
+  console.log("TCL: Index -> error", error)
   console.log("TCL: Index -> loading", loading)
+  console.log("TCL: Index -> data", data)
 
   if (gameBySlug) {
     return (
       <div>
-        game slug: {gameBySlug.id}
+        game name: {gameBySlug.name}
         {loading === true
         ? <p>...loading</p>
         : <div>
