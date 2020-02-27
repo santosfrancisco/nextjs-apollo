@@ -29,14 +29,8 @@ export const resolvers = {
     gamesSearch: async (_parent, { search }, _context, _info) => {
       return _context.dataSources.IGDB.searchGames(search)
     },
-    // game (_parent, { slug }, _context, _info) {
-    //   return IGDB
-    //     .get(
-    //       `/games`,
-    //       { data: `fields id,name,slug,screenshots.url,summary,rating,release_dates.y,cover.url; where slug = \"${slug}\";` }
-    //     )
-    //     .then(({ data }) => transformGameResponse(data[0]))
-    //     .catch(err => console.log('Error', err));
-    // },
+    gameBySlug: async (_parent, { slug }, _context, _info) => {
+      return _context.dataSources.IGDB.getGameBySlug(slug)
+    }
   }
 }

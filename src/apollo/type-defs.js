@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 export const typeDefs = gql`
   type Query {
     gamesSearch(search: String): [Game]!
-    game(slug: String): GameFull,
+    gameBySlug(slug: String): GameFull,
     rockets: [Rockets]
   }
 

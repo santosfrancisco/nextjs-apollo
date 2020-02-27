@@ -1,14 +1,3 @@
-// import axios from 'axios'
-
-// export const IGDB = axios.create({
-//   baseURL: 'https://api-v3.igdb.com',
-//   timeout: 10000,
-//   headers: {
-//     'user-key': '0ecda835fb7f168ecb0129800aea3571',
-//     'Content-Type': 'text/plain'
-//   }
-// })
-
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 export class IGDBSource extends RESTDataSource {
@@ -23,6 +12,10 @@ export class IGDBSource extends RESTDataSource {
   async searchGames(searchTerm) {
     const response = await this.post('games', null, { body: `fields id,name,slug,rating,release_dates.y,cover.url; search \"${searchTerm}\";`, headers: {'Content-Type': 'text/plain'} });
     return response
+  }
+  async getGameBySlug(slug) {
+    const response = await this.post('games', null, { body: `fields id,name,slug,screenshots.url,summary,rating,release_dates.y,cover.url; where slug = \"${slug}\";`, headers: {'Content-Type': 'text/plain'} });
+    return response[0]
   }
 }
 
