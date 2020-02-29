@@ -4,7 +4,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/react-hooks'
 import { withApollo } from '../apollo/client'
-import Search from '../components/search/search'
+
+import Search from '../components/search'
+import GamesList from '../components/games-list'
 
 const QUERY = gql`
   query gamesSearchQuery($search: String) {
@@ -27,13 +29,8 @@ const Index = () => {
     data: { gamesSearch },
     refetch
   } = useQuery(QUERY, {
-    variables: { search: term }
+    variables: { search: term || '' }
   })
-  
-
-  const handleSubmitSearch = (term) => {
-    setTerm(term)
-  }
 
   useEffect(() => {
     refetch()
@@ -43,19 +40,8 @@ const Index = () => {
   if (gamesSearch) {
     return (
       <div>
-        <Search value={term} onSubmitSearch={handleSubmitSearch} />
-        <ul>
-          {gamesSearch.map(game => (
-            <li key={game.id}>
-              <Link href={`/${game.slug}`}>
-              <a>
-                {game.cover && game.cover.url && <img src={game.cover.url} alt="" />}
-                <label>{game.name}</label>
-              </a>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <Search value={term} onSubmitSearch={setTerm} />
+        <GamesList games={gamesSearch} />
       </div>
     )
   }
