@@ -3,7 +3,7 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import { Row, Col } from 'react-awesome-styled-grid'
 
-const GameCard = styled(() => (
+const GameCard = styled(({ game }) => (
   <Col xs={4} as='li'>
     <Link href={`/${game.slug}`}>
       <a>
