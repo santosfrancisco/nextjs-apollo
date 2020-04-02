@@ -1,9 +1,8 @@
-import { makeExecutableSchema } from 'graphql-tools'
-import { typeDefs } from './type-defs'
-import { resolvers } from './resolvers'
-import { IGDBSource } from '../data-sources'
+import { makeExecutableSchema } from "graphql-tools";
+import typeDefs from "./types";
+import resolvers from "./resolvers";
 
 export const schema = makeExecutableSchema({
   typeDefs,
-  resolvers,
-})
+  resolvers
+});
